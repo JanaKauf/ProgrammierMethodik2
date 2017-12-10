@@ -2,33 +2,44 @@ package aufgabe3;
 
 import java.util.Random;
 
-import aufgabe3.RangierBahnhof.Zug;
-
 public class Lokfuehrer extends Thread{
 	private RangierBahnhof bahnhof;
 	private Random r = new Random();
+	private int einfahrenOderAusfahren;
+	private int gleis;
 	
 	public Lokfuehrer (RangierBahnhof bahnhof) {
 		this.bahnhof = bahnhof;
+		this.einfahrenOderAusfahren = r.nextInt(2);
+		this.gleis = r.nextInt(4);
 	}
 
 	@Override
-	public void run() {
-		//wähle eine von zwei Aufgaben
+	public void run() {		
 		
-		
-		switch(r.nextInt(1)) {
-		case 0:
-			bahnhof.zugEinfahren(new bahnhof$Zug(), r.nextInt(4));
-			break;
-		case 1:
-			break;
-		default:
-			break;
-		}
+		switch(einfahrenOderAusfahren) {
+			case 0:
+				bahnhof.zugEinfahren(bahnhof.new Zug() , gleis);
+				break;
+			case 1:
+				bahnhof.zugAusfahren(gleis);
+				break;
+			default:
+				break;
+			}
 		
 	}
 	
+	public int getEinfahrenOderAusfahren() {
+		return einfahrenOderAusfahren;
+	}
 	
+	public int getGleis() {
+		return gleis;
+	}
+	
+	public RangierBahnhof getBahnhof() {
+		return bahnhof;
+	}
 
 }
